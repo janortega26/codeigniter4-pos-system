@@ -8,7 +8,9 @@
 <h2>New User</h2>
 
 <?php if (isset($validation)): ?>
-    <?= $validation->listErrors() ?>
+    <div style="color: red;">
+        <?= $validation->listErrors() ?>
+    </div>
 <?php endif; ?>
 
 <?= form_open('users/create') ?>
@@ -18,7 +20,7 @@
         <input
             type="text"
             name="username"
-            value="<?= esc(set_value('username')) ?>"
+            value="<?= esc(old('username')) ?>"
         >
     </p>
 
@@ -27,7 +29,23 @@
         <input
             type="text"
             name="full_name"
-            value="<?= esc(set_value('full_name')) ?>"
+            value="<?= esc(old('full_name')) ?>"
+        >
+    </p>
+
+    <p>
+        Password:<br>
+        <input
+            type="password"
+            name="password"
+        >
+    </p>
+
+    <p>
+        Confirm Password:<br>
+        <input
+            type="password"
+            name="password_confirm"
         >
     </p>
 
@@ -35,7 +53,7 @@
 
 <?= form_close() ?>
 
-<br>
+<br><br>
 
 <?= anchor('users', 'Back to User Accounts') ?>
 

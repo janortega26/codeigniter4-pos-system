@@ -33,10 +33,29 @@ class User extends BaseController
                     'is_unique' => 'That username is already being used.'
                 ]
             ],
+
             'full_name' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'The full name field is required.'
+                ]
+            ],
+
+            'password' => [
+                'rules' => 'required|min_length[8]',
+                'errors' => [
+                    'required' => 'The password field is required.',
+                    'min_length' =>
+                        'The password must contain at least 8 characters.'
+                ]
+            ],
+
+            'password_confirm' => [
+                'rules' => 'required|matches[password]',
+                'errors' => [
+                    'required' => 'Please confirm the password.',
+                    'matches' =>
+                        'The password confirmation does not match.'
                 ]
             ]
         ];
@@ -50,8 +69,19 @@ class User extends BaseController
         $userModel = new UserModel();
 
         $userModel->save([
-            'username'   => $this->request->getPost('username'),
-            'full_name'  => $this->request->getPost('full_name'),
+            'username' => trim(
+                (string) $this->request->getPost('username')
+            ),
+
+            'full_name' => trim(
+                (string) $this->request->getPost('full_name')
+            ),
+
+            'password' => password_hash(
+                (string) $this->request->getPost('password'),
+                PASSWORD_DEFAULT
+            ),
+
             'created_at' => date('Y-m-d H:i:s')
         ]);
 

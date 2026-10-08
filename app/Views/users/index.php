@@ -7,6 +7,21 @@
 
 <h2>User Accounts</h2>
 
+<p>
+    Logged in as:
+    <strong><?= esc(session()->get('fullName')) ?></strong>
+</p>
+
+<p>
+    <?= anchor('customers', 'Customer Accounts') ?>
+    |
+    <?= anchor('users', 'User Accounts') ?>
+    |
+    <?= anchor('logout', 'Logout') ?>
+</p>
+
+<hr>
+
 <table border="1">
     <tr>
         <th>Avatar</th>
